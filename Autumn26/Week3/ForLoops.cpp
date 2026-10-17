@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 
 int main(){
     int n, counter=0;
