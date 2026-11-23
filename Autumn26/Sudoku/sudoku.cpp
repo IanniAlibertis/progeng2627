@@ -38,17 +38,13 @@ int twod_to_oned(int row, int col, int rowlen){
 // v: 1 1 -12 1 5; n: 5 | return: 4
 
 int mfind(int n, const std::vector<int>& v){
-    int counter=0;
 
     for(int i=0; i<v.size(); i++){
         if (v[i]==n){
-            counter++;
+            return i;
         }
     }
-    if(counter==0){
-        counter =-1;
-    }
-    return counter;
+    return -1;
 }
 
 // function check_sequence
@@ -62,19 +58,14 @@ int mfind(int n, const std::vector<int>& v){
 // v: 1 1 -12 1 5 | return: false
 // note that check_sequence must (meaningfully) use function mfind
 bool check_sequence(const std::vector<int>& v){
-    int counter=1;
-    for(int i=0;i<v.size();i++){
-        if (mfind(i,v)==1){
-            counter++;
-        }
-        else{
+    for(int i=1;i<=v.size();i++){
+        if (mfind(i,v)==-1){
             return false;
         }
+    }
     
-    }
-    if(counter==v.size()){
-        return true;
-    }
+    return true;
+    
 }
 
 // function get_row
@@ -88,7 +79,7 @@ bool check_sequence(const std::vector<int>& v){
 // r: 3; in: 1 2 3 4 4 1 2 76 4 4 4 1 9 4 1 -7 | out: 9 4 1 -7
 // note that this function must (meaningfully) use function twod_to_oned
 void get_row(int r, const std::vector<int>& in, std::vector<int>& out){
-    int rowlen= std::sqrt(1+in.size());
+    int rowlen= std::sqrt(in.size());
     for(int i=0;i<rowlen;i++){
         out.push_back(in[twod_to_oned(r,i,rowlen)]);
     }
@@ -100,7 +91,7 @@ void get_row(int r, const std::vector<int>& in, std::vector<int>& out){
 // c: 0; in: 1 2 3 4 4 1 2 76 4 4 4 1 9 4 1 -7 | out: 1 4 4 9
 // note that this function must (meaningfully) use function twod_to_oned
 void get_col(int c, const std::vector<int>& in, std::vector<int>& out){
-    int collen= std::sqrt(1+in.size());
+    int collen= std::sqrt(in.size());
     for(int i=0;i<collen;i++){
         out.push_back(in[twod_to_oned(i,c,collen)]);
     }
